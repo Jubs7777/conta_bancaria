@@ -8,7 +8,7 @@ import { ContaController } from "./src/controller/ContaController";
 export function main(){
     
     let contas: ContaController = new ContaController();
-    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario, valor, numeroDestino: number;
     let titular: string;
     const tiposContas = ["Conta Corrente" , "Conta Poupanca"];
 
@@ -155,7 +155,7 @@ export function main(){
             break;
             }
             } else {
-                    console.log(colors.fg.red, "\nA Conta numero: " + numero + " não foi encontrada!", colors.reset);
+                console.log(colors.fg.red, "\nA Conta número: " + numero + " não foi encontrada!", colors.reset);
             }
             
             keyPress()
@@ -176,17 +176,44 @@ export function main(){
 
             console.log(colors.fg.whitestrong, "\n\nSaque\n\n", colors.reset);
 
+            console.log("Digite o número da Conta: ");
+            numero = readlinksync.questionInt("");
+
+            console.log("\nDigite o valor do Saque (R$): ")
+            valor = readlinksync.questionFloat("");
+
+            contas.sacar(numero, valor);
+
             keyPress()
             break;
 
             case 7:
             console.log(colors.fg.whitestrong, "\n\nDepósito\n\n", colors.reset);
 
+            console.log("Digite o número da Conta: ");
+            numero = readlinksync.questionInt("");
+
+            console.log("Digite o valor do Depósito (R$): ");
+            valor = readlinksync.questionInt("");
+
+            contas.depositar(numero, valor);
+
             keyPress()
             break;
             
             case 8:
             console.log(colors.fg.whitestrong, "\n\nTransferência entre Contas\n\n", colors.reset);
+
+            console.log("Digite o número da Conta de Origem: ");
+            numero = readlinksync.questionInt("");
+
+            console.log("Digite o número da Conta de Destino: ");
+            numeroDestino = readlinksync.questionInt("");
+
+            console.log("\nDigite o valor da Transferência (R$): ");
+            valor = readlinksync.questionFloat("");
+
+            contas.transferir(numero, numeroDestino, valor);
 
             keyPress()
             break;
@@ -203,7 +230,7 @@ export function main(){
 
 export function sobre(): void {
     console.log("\n*****************************************************");
-    console.log("Projeto Desenvolvido por: Juliana Leal ");
+    console.log("Projeto Desenvolvido por: Juliana Vieira ");
     console.log("Generation Brasil - senavieira.74@gmail.com");
     console.log("https://github.com/Jubs7777/conta_bancaria.git");
     console.log("*****************************************************");
